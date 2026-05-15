@@ -22,4 +22,12 @@ public class PlaceController {
     public Place createPlace(@RequestBody Place place) {
         return placeRepository.save(place);
     }
+
+    @GetMapping("/nearby")
+    public List<Place> getNearby(
+            @RequestParam double lat,
+            @RequestParam double lon,
+            @RequestParam(defaultValue = "1.0") double radius) {
+        return placeRepository.findNearby(lat, lon, radius);
+    }
 }
