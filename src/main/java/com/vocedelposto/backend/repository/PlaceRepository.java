@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PlaceRepository extends JpaRepository<Place, Long> {
@@ -25,4 +26,6 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
             @Param("lon") double lon,
             @Param("radiusKm") double radiusKm
     );
+
+    Optional<Place> findByOsmId(String osmId);
 }

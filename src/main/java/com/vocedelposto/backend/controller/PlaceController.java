@@ -4,6 +4,7 @@ import com.vocedelposto.backend.dto.DTOMapper;
 import com.vocedelposto.backend.dto.PlaceDTO;
 import com.vocedelposto.backend.model.Place;
 import com.vocedelposto.backend.repository.PlaceRepository;
+import com.vocedelposto.backend.service.OverpassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -35,6 +36,20 @@ public class PlaceController {
             @RequestParam double lon,
             @RequestParam(defaultValue = "1.0") double radius) {
         return placeRepository.findNearby(lat, lon, radius)
+                .stream()
+                .map(DTOMapper::toPlaceDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Autowired
+    private OverpassService overpassService;
+
+    @GetMapping("/import")
+    public List<PlaceDTO> importFromOsm(
+            @RequestParam double lat,
+            @RequestParam double lon,
+            @RequestParam(defaultValue = "1000") double radius) {
+        return overpassService.fetchAndSavePlaces(lat, lon, radius)
                 .stream()
                 .map(DTOMapper::toPlaceDTO)
                 .collect(Collectors.toList());
