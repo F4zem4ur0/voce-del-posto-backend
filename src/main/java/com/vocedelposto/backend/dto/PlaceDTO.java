@@ -14,4 +14,8 @@ public class PlaceDTO {
     private String category;
     private Double latitude;
     private Double longitude;
+    private String phone;
+    private String website;
+    private String openingHours;
+    private String description;
 }

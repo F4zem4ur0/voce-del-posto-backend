@@ -91,9 +91,16 @@ public class OverpassService {
                         place.setAddress(street + (number.isEmpty() ? "" : " " + number) + (city.isEmpty() ? "" : ", " + city));
                     }
 
+                    if (tags.has("phone")) place.setPhone(tags.get("phone").asText());
+                    if (tags.has("website")) place.setWebsite(tags.get("website").asText());
+                    if (tags.has("opening_hours")) place.setOpeningHours(tags.get("opening_hours").asText());
+                    if (tags.has("description")) place.setDescription(tags.get("description").asText());
+
                     System.out.println("Saving place: " + name);
                     placeRepository.save(place);
                     places.add(place);
+
+
                 }
             }
         } catch (Exception e) {

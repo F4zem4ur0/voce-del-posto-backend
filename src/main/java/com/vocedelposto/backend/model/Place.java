@@ -33,4 +33,16 @@ public class Place {
 
     @Column
     private String osmId; // ID da OpenStreetMap
+
+    @Column
+    private String phone;
+
+    @Column
+    private String website;
+
+    @Column(length = 500)
+    private String openingHours;
+
+    @Column(length = 500)
+    private String description;
 }

@@ -13,7 +13,11 @@ public class DTOMapper {
                 place.getAddress(),
                 place.getCategory(),
                 place.getLatitude(),
-                place.getLongitude()
+                place.getLongitude(),
+                place.getPhone(),
+                place.getWebsite(),
+                place.getOpeningHours(),
+                place.getDescription()
         );
     }
 
