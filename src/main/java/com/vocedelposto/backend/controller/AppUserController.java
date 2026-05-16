@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import com.vocedelposto.backend.model.Tag;
 import java.util.Set;
+import com.vocedelposto.backend.model.Tag;
 
 @RestController
 @RequestMapping("/users")
@@ -29,5 +30,11 @@ public class AppUserController {
         AppUser user = appUserRepository.findById(id).orElseThrow();
         user.setPreferredTags(tags);
         return appUserRepository.save(user);
+    }
+
+    @GetMapping("/{id}/tags")
+    public Set<Tag> getUserTags(@PathVariable Long id) {
+        AppUser user = appUserRepository.findById(id).orElseThrow();
+        return user.getPreferredTags();
     }
 }
