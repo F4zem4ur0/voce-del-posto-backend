@@ -9,4 +9,5 @@ import java.util.List;
 public interface ReviewRepository extends JpaRepository<Review, Long> {
     List<Review> findByPlaceId(Long placeId);
     List<Review> findByUserId(Long userId);
+    boolean existsByUserIdAndPlaceId(Long userId, Long placeId);
 }

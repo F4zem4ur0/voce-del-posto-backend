@@ -27,7 +27,22 @@ public class ReviewController {
 
     @PostMapping
     public ResponseEntity<ReviewDTO> createReview(@RequestBody Review review) {
+        boolean alreadyReviewed = reviewRepository.existsByUserIdAndPlaceId(
+                review.getUser().getId(),
+                review.getPlace().getId()
+        );
+        if (alreadyReviewed) {
+            return ResponseEntity.status(409).build(); // 409 Conflict
+        }
         Review saved = reviewRepository.save(review);
         return ResponseEntity.ok(DTOMapper.toReviewDTO(saved));
+    }
+
+    @GetMapping("/exists")
+    public ResponseEntity<Boolean> checkExists(
+            @RequestParam Long userId,
+            @RequestParam Long placeId) {
+        boolean exists = reviewRepository.existsByUserIdAndPlaceId(userId, placeId);
+        return ResponseEntity.ok(exists);
     }
 }
